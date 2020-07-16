@@ -28,6 +28,16 @@ $router->get(
         'uses' => 'VideogameController@getReviews'
     ]
 );
+// ---------- Route for ALL -----------
+
+$router->get(
+    'videogames',
+    [
+        'as' => 'videogame-list',
+        'uses' => 'VideogameController@list'
+    ]
+);
+
 
 
 // --------- REVIEWS ---------
