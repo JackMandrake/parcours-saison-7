@@ -78,9 +78,6 @@ let app = {
         newVideoElement.querySelector('.reviewLifetime').textContent = singleGame[0].lifetime_note;
         newVideoElement.querySelector('.reviewText').textContent = singleGame[0].text;
 
-       
-
-
         let videogameContainer = document.querySelector('#review');
         videogameContainer.prepend(newVideoElement);
 
@@ -94,7 +91,38 @@ let app = {
     loadVideoGames: function() {
         // Charger toutes les données des videogames
             // Ajouter une balise <option> par videogame
-    }
+
+            let fetchOptions = {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache'
+            };
+
+            fetch(app.apiRootUrl + '/videogames', fetchOptions)
+
+            .then(function(response) {
+                return response.json();
+            })
+
+            .then(function(videogameList) {
+
+                for(let i =0; i< videogameList.length; i++) {
+                    let singleVideogame = videogameList[i];
+
+                    app.createOptionVideoGame(singleVideogame.name);
+                }
+            });
+    },
+
+    createOptionVideoGame: function(name) {
+        //id="videogameId"
+        let optionElement = newOptionElement;
+        newOptionElement.querySelector('#option').textContent = name;
+
+        let newOption = document.getElementById('videoGameId');
+        
+        newOption.prepend(optionElement);
+    },
 };
 
 document.addEventListener('DOMContentLoaded', app.init);
